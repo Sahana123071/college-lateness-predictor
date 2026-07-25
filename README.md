@@ -2,6 +2,26 @@
 
 A simple machine learning classifier built for an AI/ML internship task.
 
+#Code
+# minutes before 9:00 AM that you left the room
+minutes_before_class = [5, 10, 15, 20, 25, 30, 8, 12, 35, 18, 22, 40, 6, 28]
+
+# was I late that day?
+result = ["Late","Late","Late","On Time","On Time","On Time","Late","Late",
+          "On Time","Late","On Time","On Time","Late","On Time"]
+import pandas as pd
+df = pd.DataFrame({"minutes_before": minutes_before_class, "result": result})
+df
+from sklearn.linear_model import LogisticRegression
+
+X = df[["minutes_before"]]
+y = df["result"]
+
+model = LogisticRegression()
+model.fit(X, y)
+model.predict([[15]])   # "if I leave 15 min before class, will I be late?"
+for m in range(0, 45, 5):
+    print(m, "min before ->", model.predict([[m]])[0])
 ## What it does
 Predicts whether I'll be late to college based on how many minutes 
 before class I leave my room, using data from my own daily routine.
